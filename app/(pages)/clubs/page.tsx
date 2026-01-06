@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000';
+
 interface Club {
   id: number;
   name: string;
@@ -36,7 +38,7 @@ const Clubs = () => {
 
   const fetchClubs = async () => {
     try {
-      const response = await fetch('http://localhost:5000/clubs/');
+      const response = await fetch(`${API_BASE_URL}/clubs/`);
       if (!response.ok) {
         throw new Error('Failed to fetch clubs');
       }
@@ -52,7 +54,7 @@ const Clubs = () => {
   const fetchUserMemberships = async () => {
     if (!user) return;
     try {
-      const response = await fetch(`http://localhost:5000/memberships/user/${user.id}`);
+      const response = await fetch(`${API_BASE_URL}/memberships/user/${user.id}`);
       if (response.ok) {
         const data = await response.json();
         const clubIds = data.map((m: any) => m.club_id);
@@ -71,7 +73,7 @@ const Clubs = () => {
 
     setJoiningClubId(clubId);
     try {
-      const response = await fetch('http://localhost:5000/memberships/', {
+      const response = await fetch(`${API_BASE_URL}/memberships/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

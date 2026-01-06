@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/navigation';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000';
+
 interface Club {
   id: number;
   name: string;
@@ -43,7 +45,7 @@ const Dashboard = () => {
     if (!user) return;
     try {
       // Fetch user's dashboard data
-      const response = await fetch(`http://localhost:5000/dashboard/${user.id}`);
+      const response = await fetch(`${API_BASE_URL}/dashboard/${user.id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch dashboard data');
       }

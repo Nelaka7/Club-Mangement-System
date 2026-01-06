@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useAuth } from '../../../../context/AuthContext';
 import { useRouter } from 'next/navigation';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000';
+
 interface Member {
   id: number;
   username: string;
@@ -39,7 +41,7 @@ const ManageMembers = () => {
 
   const fetchMembers = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/clubs/${clubId}/members`);
+      const response = await fetch(`${API_BASE_URL}/clubs/${clubId}/members`);
       if (!response.ok) {
         throw new Error('Failed to fetch members');
       }

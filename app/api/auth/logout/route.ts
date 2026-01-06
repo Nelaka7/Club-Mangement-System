@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000';
+
 export async function POST(request: NextRequest) {
     try {
         // Get cookies from the request
         const cookies = request.headers.get('cookie') || '';
 
         // Forward logout request to Flask backend
-        const response = await fetch('http://localhost:5000/auth/logout', {
+        const response = await fetch(`${API_BASE_URL}/auth/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

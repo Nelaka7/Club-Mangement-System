@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import classes from './page.module.css';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000';
+
 const SignUp = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -37,7 +39,7 @@ const SignUp = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/auth/register', {
+      const response = await fetch(`${API_BASE_URL}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
